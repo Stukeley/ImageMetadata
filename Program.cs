@@ -127,7 +127,8 @@ namespace ImageMetadata
 
 				Console.WriteLine($"Resolution: {BitConverter.ToUInt32(width, 0)}x{BitConverter.ToUInt32(height, 0)} pixels.\n");
 
-				Console.WriteLine($"Chunk {i++}. Type: {Encoding.ASCII.GetString(chunkType)}; size: {size}");
+				// size is just the length of chunk's DATA - chunk length itself, chunk type and CRC are 12 additional bytes in total
+				Console.WriteLine($"Chunk {i++}. Type: {Encoding.ASCII.GetString(chunkType)}; size: {size + 12}");
 
 				// While we can still read the length - subsequent chunks
 				while (fs.Read(chunkLength, 0, chunkLength.Length) > 0)
